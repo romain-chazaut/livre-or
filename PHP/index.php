@@ -19,8 +19,8 @@
 
     <nav>
         <ul>
-            <li><a href="signup.php">Inscription</a></li>
-            <li><a href="login.php">Connexion</a></li>
+            <li><a href="inscription.php">Inscription</a></li>
+            <li><a href="connexion.php">Connexion</a></li>
             <li><a href="profil.php">Profil</a></li>
             <li><a href="livre-or.php">Livre d'or</a></li>
             <li><a href="commentaire.php">Ajouter un commentaire</a></li>

@@ -25,10 +25,20 @@ class User {
         }
     }
 
-    // Méthode pour l'inscription
     public function register($login, $password) {
-        // Logique d'inscription à ajouter ici
+        // Préparation de la requête
+        $query = $this->pdo->prepare("INSERT INTO user (login, password) VALUES (:login, :password)");
+    
+        // Hachage du mot de passe
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    
+        // Exécution de la requête avec les valeurs
+        $query->execute([
+            ':login' => $login,
+            ':password' => $hashedPassword
+        ]);
     }
+    
 
     // Méthode pour la connexion
     public function login($login, $password) {
