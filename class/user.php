@@ -1,80 +1,87 @@
 <?php
+require_once 'class/database.php';
 
 class User {
-    // Déclaration des propriétés
-    private $id;
-    private $login;
-    private $password;
-    private $pdo;
+    private $conn;
+    private $table_name = "user";
 
-    // Constructeur de la classe
-    public function __construct($id, $login, $password) {
-        $this->id = $id;
-        $this->login = $login;
-        $this->password = $password;
-        $this->pdo = $this->connectDB();
+    public $id;
+    public $login;
+    public $password;
+
+    public function __construct(){
+        $database = new Database();
+        $db = $database->dbConnection();
+        $this->conn = $db;
     }
 
-    // Méthode de connexion à la base de données
-    private function connectDB() {
+    // Inscription
+    public function register($login, $password){
         try {
-            // Changez les paramètres de connexion en fonction de votre configuration
-            return new PDO('mysql:host=localhost;dbname=livreor;charset=utf8', 'root', '');
-        } catch (Exception $e) {
-            die('Erreur : ' . $e->getMessage());
+            $new_password = password_hash($password, PASSWORD_DEFAULT);
+            $stmt = $this->conn->prepare("INSERT INTO user(login,password) VALUES(:login,:password)");
+            $stmt->bindParam(":login", $login);
+            $stmt->bindParam(":password", $new_password);            
+            $stmt->execute(); 
+            return $stmt; 
+        }
+        catch(PDOException $e) {
+            echo $e->getMessage();
+        }    
+    }
+
+    // Connexion
+    public function login($login, $password){
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM user WHERE login=:login");
+            $stmt->execute(array(':login'=>$login));
+            $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+            if($stmt->rowCount() == 1) {
+                if(password_verify($password, $userRow['password'])) {
+                    $_SESSION['user_session'] = $userRow['id'];
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } catch(PDOException $e) {
+            echo $e->getMessage();
         }
     }
 
-    public function register($login, $password) {
-        // Préparation de la requête
-        $query = $this->pdo->prepare("INSERT INTO user (login, password) VALUES (:login, :password)");
-    
-        // Hachage du mot de passe
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    
-        // Exécution de la requête avec les valeurs
-        $query->execute([
-            ':login' => $login,
-            ':password' => $hashedPassword
-        ]);
-    }
-    
-
-    // Méthode pour la connexion
-    public function login($login, $password) {
-        // Logique de connexion à ajouter ici
+    // Vérifier si connecté
+    public function is_loggedin(){
+        if(isset($_SESSION['user_session'])) {
+            return true;
+        }
     }
 
-    // Méthode pour la modification du profil
+    // Redirection
+    public function redirect($url){
+        header("Location: $url");
+    }
+
+    // Déconnexion
+    public function logout(){
+        session_destroy();
+        unset($_SESSION['user_session']);
+        return true;
+    }
+
+    // Mettre à jour le profil de l'utilisateur
     public function updateProfile($login, $password) {
-        // Logique de modification du profil à ajouter ici
-    }
-
-    // Méthodes d'accès (getters)
-    public function getId() {
-        return $this->id;
-    }
-
-    public function getLogin() {
-        return $this->login;
-    }
-
-    public function getPassword() {
-        return $this->password;
-    }
-
-    // Méthodes de modification (setters)
-    public function setId($id) {
-        $this->id = $id;
-    }
-
-    public function setLogin($login) {
-        $this->login = $login;
-    }
-
-    public function setPassword($password) {
-        $this->password = $password;
+        try {
+            $new_password = password_hash($password, PASSWORD_DEFAULT);
+            $stmt = $this->conn->prepare("UPDATE user SET login=:login, password=:password WHERE id=:id");
+            $stmt->bindParam(":login", $login);
+            $stmt->bindParam(":password", $new_password);
+            $stmt->bindParam(":id", $_SESSION['user_session']);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
     }
 }
-
 ?>
