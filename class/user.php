@@ -15,7 +15,7 @@ class User {
         $this->conn = $db;
     }
 
-    // Inscription
+    // Method to register a user
     public function register($login, $password){
         try {
             $new_password = password_hash($password, PASSWORD_DEFAULT);
@@ -30,13 +30,13 @@ class User {
         }    
     }
 
-    // Connexion
+    // Method to login a user
     public function login($login, $password){
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM user WHERE login=:login");
+            $stmt = $this->conn->prepare("SELECT * FROM user WHERE login=:login LIMIT 1");
             $stmt->execute(array(':login'=>$login));
             $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
-            if($stmt->rowCount() == 1) {
+            if($stmt->rowCount() > 0) {
                 if(password_verify($password, $userRow['password'])) {
                     $_SESSION['user_session'] = $userRow['id'];
                     return true;
@@ -49,26 +49,26 @@ class User {
         }
     }
 
-    // Vérifier si connecté
+    // Check if user is logged in
     public function is_loggedin(){
         if(isset($_SESSION['user_session'])) {
             return true;
         }
     }
 
-    // Redirection
+    // Redirect
     public function redirect($url){
         header("Location: $url");
     }
 
-    // Déconnexion
+    // Logout
     public function logout(){
         session_destroy();
         unset($_SESSION['user_session']);
         return true;
     }
 
-    // Mettre à jour le profil de l'utilisateur
+    // Update user's profile
     public function updateProfile($login, $password) {
         try {
             $new_password = password_hash($password, PASSWORD_DEFAULT);

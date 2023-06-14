@@ -41,6 +41,6 @@ if (isset($_POST['btn-register'])) {
         <input type="password" name="password" placeholder="Mot de passe" required>
         <button type="submit" name="btn-register">S'inscrire</button>
     </form>
-    <a href="../index.php"><button>Retour à l'accueil</button></a>
+    <a href="login.php"><button>Retour à l'accueil</button></a>
 </body>
 </html>

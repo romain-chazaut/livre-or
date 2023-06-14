@@ -4,7 +4,7 @@ require_once '../class/user.php';
 $user = new User();
 
 if (!$user->is_loggedin()) {
-    $user->redirect('../index.php');
+    $user->redirect('login.php');
 }
 
 if (isset($_POST['btn-update'])) {
@@ -40,7 +40,7 @@ if (isset($_POST['btn-update'])) {
         <input type="password" name="password" placeholder="Mot de passe" required>
         <button type="submit" name="btn-update">Mettre à jour</button>
     </form>
-    <a href="login.php"><button>Retour à l'accueil</button></a>
     <a href="logout.php"><button>Se déconnecter</button></a>
+    <a href="golden-book.php"><button>Livre D'or</button></a>
 </body>
 </html>

@@ -2,14 +2,12 @@
 require_once '../class/user.php';
 session_start();
 $user = new User();
-var_dump($user);
 
 if ($user->is_loggedin()) {
     $user->redirect('profile.php');
 }
 
 if (isset($_POST['btn-login'])) {
-    var_dump($_POST);
     $uname = $_POST['username'];
     $upass = $_POST['password'];
 
