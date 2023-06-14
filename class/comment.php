@@ -1,9 +1,11 @@
 <?php
 require_once 'database.php';
+require_once 'user.php';
 
 class Comment {
     private $conn;
     private $table_name = "comment";
+    private $user;
 
     public $id;
     public $comment;
@@ -14,6 +16,33 @@ class Comment {
         $database = new Database();
         $db = $database->dbConnection();
         $this->conn = $db;
+        $this->user = new User();
+    }
+
+    // Method to check if a user is logged in
+    public function isUserLoggedIn() {
+        return $this->user->is_loggedin();
+    }
+
+    // Method to redirect user
+    public function redirectUser($location) {
+        $this->user->redirect($location);
+    }
+
+    // Method to handle requests
+    public function handleRequest() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['new_comment'])) {
+                $content = $_POST['content'];
+                $this->addComment($content, $_SESSION['user_session']);
+            } elseif (isset($_POST['delete_comment'])) {
+                $commentId = $_POST['comment_id'];
+                $this->deleteComment($commentId, $_SESSION['user_session']);
+            }
+            // Refresh the page
+            header('Location: '.$_SERVER['REQUEST_URI']);
+            exit;
+        }
     }
 
     // Method to add a comment
