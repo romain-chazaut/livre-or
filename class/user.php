@@ -1,5 +1,5 @@
 <?php
-require_once 'class/database.php';
+require_once 'database.php';
 
 class User {
     private $conn;

@@ -1,13 +1,15 @@
 <?php
+require_once '../class/user.php';
 session_start();
-require_once '../../class/user.php';
 $user = new User();
+var_dump($user);
 
 if ($user->is_loggedin()) {
     $user->redirect('profile.php');
 }
 
 if (isset($_POST['btn-login'])) {
+    var_dump($_POST);
     $uname = $_POST['username'];
     $upass = $_POST['password'];
 
@@ -33,7 +35,6 @@ if (isset($_POST['btn-login'])) {
         <input type="password" name="password" placeholder="Mot de passe" required>
         <button type="submit" name="btn-login">Se connecter</button>
     </form>
-    <a href="register.php"><button>S'inscrire</button></a>
-    <a href="index.php"><button>Retour à l'accueil</button></a>
+    <a href="../index.php"><button>Retour à l'accueil</button></a>
 </body>
 </html>
