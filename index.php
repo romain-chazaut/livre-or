@@ -1,23 +1,23 @@
-<!-- <?php
-// session_start();
-// require_once 'class/user.php';
-// $user = new User();
+ <?php
+ session_start();
+ require_once 'class/user.php';
+ $user = new User();
 
-// if ($user->is_loggedin()) {
-//     $user->redirect('PHP/profile.php');
-// }
+if ($user->is_loggedin()) {
+     $user->redirect('PHP/profile.php');
+ }
 
-// if (isset($_POST['btn-login'])) {
-//     $uname = $_POST['username'];
-//     $upass = $_POST['password'];
+ if (isset($_POST['btn-login'])) {
+     $uname = $_POST['username'];
+     $upass = $_POST['password'];
 
-//     if ($user->login($uname, $upass)) {
-//         $user->redirect('PHP/profile.php');
-//     } else {
-//         $error = "Mauvais identifiants !";
-//     }
-// }
-?> -->
+     if ($user->login($uname, $upass)) {
+         $user->redirect('PHP/profile.php');
+     } else {
+         $error = "Mauvais identifiants !";
+    }
+ }
+?> 
 
 <!DOCTYPE html>
 <html>

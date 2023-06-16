@@ -15,8 +15,14 @@ if (isset($_POST['btn-update'])) {
         $error = "Veuillez fournir un nom d'utilisateur !";
     } elseif (empty($password)) {
         $error = "Veuillez fournir un mot de passe !";
-    } elseif (strlen($password) < 6) {
-        $error = "Le mot de passe doit contenir au moins 6 caractères !";
+    } elseif (strlen($password) < 8) {
+        $error = "Le mot de passe doit contenir au moins 8 caractères !";
+    } elseif (!preg_match("/[A-Z]/", $password)) {
+        $error = "Le mot de passe doit contenir au moins une majuscule !";
+    } elseif (!preg_match("/\d/", $password)) {
+        $error = "Le mot de passe doit contenir au moins un chiffre !";
+    } elseif (!preg_match("/\W/", $password)) {
+        $error = "Le mot de passe doit contenir au moins un caractère spécial !";
     } else {
         if ($user->updateProfile($login, $password)) {
             $user->redirect('profile.php');
