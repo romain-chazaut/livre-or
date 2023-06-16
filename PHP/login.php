@@ -23,7 +23,7 @@ if (isset($_POST['btn-login'])) {
 <html>
 <head>
     <title>Connexion</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/login.css">
 </head>
 <body>
     <h1>Connexion</h1>

@@ -42,7 +42,7 @@ if (isset($_POST['btn-register'])) {
 <html>
 <head>
     <title>Inscription</title>
-    <!-- Ajoutez votre CSS ici -->
+    <link rel="stylesheet" href="../CSS/register.css"> 
 </head>
 <body>
     <h1>Inscription</h1>
@@ -56,3 +56,4 @@ if (isset($_POST['btn-register'])) {
     <a href="login.php"><button>Retour à l'accueil</button></a>
 </body>
 </html>
+

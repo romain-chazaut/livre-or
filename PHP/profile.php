@@ -37,16 +37,29 @@ if (isset($_POST['btn-update'])) {
 <html>
 <head>
     <title>Profil</title>
+    <link rel="stylesheet" href="../CSS/profile.css">
 </head>
 <body>
-    <h1>Profil</h1>
-    <?php if (isset($error)) echo $error; ?>
-    <form method="post">
-        <input type="text" name="username" placeholder="Nom d'utilisateur" required>
-        <input type="password" name="password" placeholder="Mot de passe" required>
-        <button type="submit" name="btn-update">Mettre à jour</button>
-    </form>
-    <a href="logout.php"><button>Se déconnecter</button></a>
-    <a href="golden-book.php"><button>Livre D'or</button></a>
+    <div class="navbar">
+        <h1 class="nav-title">Profil</h1>
+        <div class="nav-links">
+            <a href="../index.php" class="button">Retour à l'accueil</a>
+            <a href="logout.php" class="nav-link">Se déconnecter</a>
+            <a href="golden-book.php" class="nav-link">Livre d'or</a>
+        </div>
+    </div>
+
+    <div class="comment">
+        <?php if (isset($error)) echo "<p>" . $error . "</p>"; ?>
+
+        <form method="post">
+            <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+            <input type="password" name="password" placeholder="Mot de passe" required>
+            <div class="form-buttons">
+                <input type="submit" name="btn-update" value="Mettre à jour">
+                <a href="../index.php" class="button">Retour à l'accueil</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

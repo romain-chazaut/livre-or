@@ -26,6 +26,7 @@ if ($user->is_loggedin()) {
 </head>
 <body>
     <h1>Accueil</h1>
+    <link rel="stylesheet" type="text/css" href="index.css">
     <?php if (isset($error)) echo $error; ?>
     <!-- <form method="post">
         <input type="text" name="username" placeholder="Nom d'utilisateur" required>
