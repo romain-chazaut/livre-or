@@ -25,7 +25,7 @@ $comments = $comment->getComments();
         <div class="navbar">
             <h1 class="nav-title">Livre d'or</h1>
             <div class="nav-links">
-                <a href="../index.php" class="nav-link">Accueil</a>
+                <a href="../index.php" class="nav-link">Profil</a>
                 <a href="logout.php" class="nav-link">Déconnexion</a>
             </div>
         </div>

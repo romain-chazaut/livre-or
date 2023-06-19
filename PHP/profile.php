@@ -4,7 +4,7 @@ require_once '../class/user.php';
 $user = new User();
 
 if (!$user->is_loggedin()) {
-    $user->redirect('login.php');
+    $user->redirect('../index.php');
 }
 
 if (isset($_POST['btn-update'])) {
@@ -43,9 +43,7 @@ if (isset($_POST['btn-update'])) {
     <div class="navbar">
         <h1 class="nav-title">Profil</h1>
         <div class="nav-links">
-            <a href="../index.php" class="button">Retour à l'accueil</a>
             <a href="logout.php" class="nav-link">Se déconnecter</a>
-            <a href="golden-book.php" class="nav-link">Livre d'or</a>
         </div>
     </div>
 
@@ -57,7 +55,7 @@ if (isset($_POST['btn-update'])) {
             <input type="password" name="password" placeholder="Mot de passe" required>
             <div class="form-buttons">
                 <input type="submit" name="btn-update" value="Mettre à jour">
-                <a href="../index.php" class="button">Retour à l'accueil</a>
+                <a href="golden-book.php" class="button">Livre d'or</a>                
             </div>
         </form>
     </div>

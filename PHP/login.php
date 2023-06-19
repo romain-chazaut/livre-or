@@ -26,13 +26,17 @@ if (isset($_POST['btn-login'])) {
     <link rel="stylesheet" type="text/css" href="../CSS/login.css">
 </head>
 <body>
-    <h1>Connexion</h1>
-    <?php if (isset($error)) echo $error; ?>
-    <form method="post">
-        <input type="text" name="username" placeholder="Nom d'utilisateur" required>
-        <input type="password" name="password" placeholder="Mot de passe" required>
-        <button type="submit" name="btn-login">Se connecter</button>
-    </form>
-    <a href="../index.php"><button>Retour à l'accueil</button></a>
+    <div class="container">
+        <h1>Connexion</h1>
+        <?php if (isset($error)) echo $error; ?>
+        <form method="post">
+            <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+            <input type="password" name="password" placeholder="Mot de passe" required>
+            <div class="button-group">
+                <button type="submit" name="btn-login">Se connecter</button>
+                <a href="../index.php"><button type="button">Retour à l'accueil</button></a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
