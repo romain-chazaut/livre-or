@@ -1,16 +1,24 @@
 <?php
+// Start the session
 session_start();
+
+// Include the User class file
 require_once '../class/user.php';
+
+// Create a new User object
 $user = new User();
 
+// If the user is not logged in, redirect them to the index page
 if (!$user->is_loggedin()) {
     $user->redirect('../index.php');
 }
 
+// Check if the update profile form has been submitted
 if (isset($_POST['btn-update'])) {
     $login = $_POST['username'];
     $password = $_POST['password'];
 
+    // Perform validation checks on the submitted data
     if (empty($login)) {
         $error = "Veuillez fournir un nom d'utilisateur !";
     } elseif (empty($password)) {
@@ -24,6 +32,7 @@ if (isset($_POST['btn-update'])) {
     } elseif (!preg_match("/\W/", $password)) {
         $error = "Le mot de passe doit contenir au moins un caractère spécial !";
     } else {
+        // If the validation checks pass, attempt to update the user's profile
         if ($user->updateProfile($login, $password)) {
             $user->redirect('profile.php');
         } else {
@@ -50,6 +59,7 @@ if (isset($_POST['btn-update'])) {
     <div class="comment">
         <?php if (isset($error)) echo "<p>" . $error . "</p>"; ?>
 
+        <!-- Provide a form for the user to update their profile -->
         <form method="post">
             <input type="text" name="username" placeholder="Nom d'utilisateur" required>
             <input type="password" name="password" placeholder="Mot de passe" required>

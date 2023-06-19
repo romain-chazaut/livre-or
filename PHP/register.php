@@ -1,17 +1,25 @@
 <?php
+// Start the session
 session_start();
+
+// Include the User class file
 require_once '../class/user.php';
+
+// Create a new User object
 $user = new User();
 
+// If the user is already logged in, redirect them to the profile page
 if ($user->is_loggedin()) {
     $user->redirect('profile.php');
 }
 
+// Check if the registration form has been submitted
 if (isset($_POST['btn-register'])) {
     $login = $_POST['username'];
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
 
+    // Perform validation checks on the submitted data
     if (empty($login)) {
         $error = "Veuillez fournir un nom d'utilisateur !";
     } elseif (empty($password)) {
@@ -29,6 +37,7 @@ if (isset($_POST['btn-register'])) {
     } elseif (!preg_match("/\W/", $password)) {
         $error = "Le mot de passe doit contenir au moins un caractère spécial !";
     } else {
+        // If the validation checks pass, attempt to register the user
         if ($user->register($login, $password)) {
             $user->redirect('login.php');
         } else {
@@ -45,7 +54,7 @@ if (isset($_POST['btn-register'])) {
     <link rel="stylesheet" href="../CSS/register.css"> 
 </head>
 <body>
-    
+    <!-- Create a form for user registration -->
     <div class="container">
         <h1>Inscription</h1>
         <?php if (isset($error)) echo htmlspecialchars($error); ?>
@@ -61,5 +70,3 @@ if (isset($_POST['btn-register'])) {
     </div>
 </body>
 </html>
-
-
