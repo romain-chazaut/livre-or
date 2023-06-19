@@ -56,6 +56,18 @@ class User {
         }
     }
 
+    // Method to get user information
+    public function get_user_info($session_id) {
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM user WHERE id=:id");
+            $stmt->execute(array(":id"=>$session_id));
+            $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+            return $userRow;
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
     // Redirect
     public function redirect($url){
         header("Location: $url");
