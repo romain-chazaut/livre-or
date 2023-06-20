@@ -1,11 +1,11 @@
 <?php
 // The Database class is responsible for creating a connection to the database.
 class Database {
-    private $host = "localhost"; // This is the database host (usually "localhost").
-    private $db_name = "livreor"; // The name of the database.
-    private $username = "root"; // The username used to connect to the database.
-    private $password = "Romain-1964"; // The password used to connect to the database.
-    public $conn; // This variable will store the database connection.
+    private $host = "localhost"; 
+    private $db_name = "livreor"; 
+    private $username = "root"; 
+    private $password = "Romain-1964";
+    public $conn; 
 
     // This function tries to establish a connection to the database and returns the connection.
     public function dbConnection() {
